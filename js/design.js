@@ -7,8 +7,8 @@ const sizePicker = document.querySelector("#sizePicker");
 const canvas = document.querySelector("#pixelCanvas");
 const colorPicker = document.querySelector("#colorPicker");
 
-// creates the grid according to the value of the user inputs
-sizePicker.addEventListener('submit', function makeGrid(e){
+// listener creates the grid according to the value of the user inputs
+sizePicker.addEventListener('submit', function makeGrid(evt){
 
 // store user input values to a variable    
 var row = document.querySelector("#inputHeight").value;
@@ -25,7 +25,7 @@ for (let i = 0; i < row; i++)
     for(let j = 0; j < col; j++)
     {
         let newCol = document.createElement("td");
-        
+
         //attach a column at the end of a row
         newRow.appendChild(newCol);
     }
@@ -33,15 +33,16 @@ for (let i = 0; i < row; i++)
 canvas.appendChild(newRow);
 }
 // prevents the default refresh behavior of submit button
-e.preventDefault();
+evt.preventDefault();
 });
 
+// function change the background color of each cell
 function addColorEvent(evt) {
     if (evt.target.nodeName.toLowerCase() === "td") {
         evt.target.style.backgroundColor = colorPicker.value;
       }
 }
-
+// listener for the cells
 canvas.addEventListener("click",addColorEvent);
 
 
