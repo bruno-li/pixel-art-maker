@@ -5,12 +5,15 @@
 //cache selectors to a variable for re-using
 const sizePicker = document.querySelector("#sizePicker");
 const canvas = document.querySelector("#pixelCanvas");
+const colorPicker = document.querySelector("#colorPicker");
 
 // creates the grid according to the value of the user inputs
 sizePicker.addEventListener('submit', function makeGrid(e){
+
 // store user input values to a variable    
 var row = document.querySelector("#inputHeight").value;
 var col = document.querySelector("#inputWidth").value;
+
 //clear canvas whenever the submit button is pressed 
 pixelCanvas.innerHTML = '';
 
@@ -22,8 +25,7 @@ for (let i = 0; i < row; i++)
     for(let j = 0; j < col; j++)
     {
         let newCol = document.createElement("td");
-        // add a class of color for every new col
-        newCol.classList.add("color")
+        
         //attach a column at the end of a row
         newRow.appendChild(newCol);
     }
@@ -32,34 +34,16 @@ canvas.appendChild(newRow);
 }
 // prevents the default refresh behavior of submit button
 e.preventDefault();
-
-// add listner for grid background color
-addColorEvent()
 });
 
-
-function addColorEvent() {
-    let cols = document.getElementsByClassName("color");
-
-    for (let i = 0; i < cols.length; i++) {
-        cols[i].addEventListener("click", function(evt){
-            var targetCol = evt.target;
-            targetCol.style.backgroundColor = colorPicker;
-        });
-    }
+function addColorEvent(evt) {
+    if (evt.target.nodeName.toLowerCase() === "td") {
+        evt.target.style.backgroundColor = colorPicker.value;
+      }
 }
 
+canvas.addEventListener("click",addColorEvent);
 
-// document.querySelector(".color").addEventListener('click', function(e) {
-//     // const colorBg = document.querySelector(".color");
-//     // const color = colorPicker.value;
-//     e.target.style.backgroundColor = colorPicker.value;
-
-
-// //    colorBg.style.backgroundColor = color;
-// //    e.target.style.backgroundColor = colorPicker.value;
-// //    console.log(colorPicker);
-// });
 
 
 
